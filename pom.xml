@@ -56,7 +56,9 @@
             <optional>true</optional>
         </dependency>
     </dependencies>
-
+<build>
+  <finalName>studentshub</finalName>
+</build>
     <build>
         <plugins>
             <!-- Spring Boot Maven Plugin -->
