@@ -17,7 +17,10 @@ public class Material {
 
     private String title;
     private String subject;
-    private String group;
+
+    @Column(name = "group_name") // ✅ Avoids SQL keyword conflict
+    private String groupName;
+
     private String year;
     private String semester;
     private String fileType; // PDF or Image
