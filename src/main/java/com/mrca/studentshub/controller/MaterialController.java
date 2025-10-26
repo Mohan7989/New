@@ -25,7 +25,7 @@ public class MaterialController {
     public ResponseEntity<Material> uploadMaterial(
             @RequestParam String title,
             @RequestParam String subject,
-            @RequestParam String group,
+            @RequestParam String groupName,
             @RequestParam String year,
             @RequestParam String semester,
             @RequestParam MultipartFile file
@@ -38,7 +38,7 @@ public class MaterialController {
         Material material = Material.builder()
                 .title(title)
                 .subject(subject)
-                .group(group)
+                .groupName(groupName)
                 .year(year)
                 .semester(semester)
                 .fileType(file.getContentType())
