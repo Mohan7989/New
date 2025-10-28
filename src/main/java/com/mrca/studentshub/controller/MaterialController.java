@@ -19,6 +19,7 @@ public class MaterialController {
     @Autowired
     private MaterialService materialService;
 
+    // Folder where files will be saved
     private final String uploadDir = "uploads/";
 
     @PostMapping("/upload")
@@ -30,11 +31,17 @@ public class MaterialController {
             @RequestParam String semester,
             @RequestParam MultipartFile file
     ) throws IOException {
+        // Generate unique filename
         String fileName = System.currentTimeMillis() + "_" + file.getOriginalFilename();
+
+        // Create uploads folder if it doesn't exist
         File dest = new File(uploadDir + fileName);
         dest.getParentFile().mkdirs();
+
+        // Save file to disk
         file.transferTo(dest);
 
+        // Build Material object
         Material material = Material.builder()
                 .title(title)
                 .subject(subject)
@@ -42,10 +49,11 @@ public class MaterialController {
                 .year(year)
                 .semester(semester)
                 .fileType(file.getContentType())
-                .filePath(dest.getAbsolutePath())
+                .filePath("/uploads/" + fileName) // ✅ Public path for frontend access
                 .approved(false)
                 .build();
 
+        // Save to database
         return ResponseEntity.ok(materialService.save(material));
     }
 
